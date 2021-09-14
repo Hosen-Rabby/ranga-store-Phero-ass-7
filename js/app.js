@@ -13,16 +13,17 @@ const showProducts = (products) => {
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `<div class="single-product">
-      <div>
+    <div>
     <img class="product-image" src=${image}></img>
-      </div>
-      <h3>${product.title}</h3>
-      <p>Category: ${product.category}</p>
-      <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
-      <p>Ratinng: ${product.rating.rate}(${product.rating.count})</p>
-      `;
+    </div>
+    <h3>${product.title}</h3>
+    <p>Category: ${product.category}</p>
+    <h2>Price: $ ${product.price}</h2>
+    <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">Add to cart</button>
+    <button onclick="productsDetais(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-danger">Details</button>
+    </div>
+    <p>Rating: ${product.rating.rate} | Rated by : ${product.rating.count}</p>
+    `;
     document.getElementById("all-products").appendChild(div);
   }
 };
@@ -72,12 +73,32 @@ const updateTaxAndCharge = () => {
 };
 
 //grandTotal update function
+
 const updateTotal = () => {
   const grandTotal =
-    getInputValue("price") + getInputValue("delivery-charge") +
-    getInputValue("total-tax");
+  getInputValue("price") + getInputValue("delivery-charge") +
+  getInputValue("total-tax");
   document.getElementById("total").innerText = grandTotal.toFixed(2);
-  console.log(grandTotal);
 };
+
+// show product details
+
+const productsDetais = (id, price) => {    
+  const detailsId = document.getElementById("details");
+  detailsId.innerHTML = '';
+  const div = document.createElement("div");
+  div.innerHTML =`
+
+  <div class="more_details">
+  <h1>Producs Details</h1>
+  
+  <h3>Product Id : ${id}</h3>
+  <p>Product price : ${price}</p>
+  </div>
+  
+  `;
+  detailsId.appendChild(div)
+}
+;
 
 loadProducts();
